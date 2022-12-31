@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import * as React from "react";
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Home } from './components/Home';
+import { Payment } from './components/Payment';
+import { SignIn } from './components/SignIn';
+import { Error } from './components/Error';
+import { AppContextProvider } from './context/AppContext';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
-        <h1>Rento</h1>
-      </header>
-    </div>
+    <AppContextProvider>
+      <div className="App">
+        <header className="App-header">
+          <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="/payment" element={<Payment />} />
+                <Route path="/error" element={<Error />} />
+            </Routes>
+          </Router>
+        </header>
+      </div>
+    </AppContextProvider>
   );
 }
 
