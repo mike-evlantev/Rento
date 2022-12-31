@@ -39,6 +39,36 @@ export const Payment: React.FC = () => {
             cardNumber: '1234 1234 1234 1234',
             expDate: 'MM / YY'
         };
+
+        const style = {
+            base: {
+                color: '#fff',
+                fontWeight: 600,
+                fontFamily: 'Quicksand, Open Sans, Segoe UI, sans-serif',
+                fontSize: '16px',
+                fontSmoothing: 'antialiased',
+                ':focus': {
+                    color: '#424770',
+                },
+        
+                '::placeholder': {
+                    color: '#9BACC8',
+                },
+        
+                ':focus::placeholder': {
+                    color: '#CFD7DF',
+                },
+            },
+            invalid: {
+                color: '#FF0000',
+                ':focus': {
+                    color: '#FA755A',
+                },
+                '::placeholder': {
+                    color: '#FFCCA5',
+                },
+            }
+        };
     
         // if (!formElements.elements.cardNumber) {
         //     console.log("cardNumber", formElements.elements);
@@ -62,12 +92,14 @@ export const Payment: React.FC = () => {
 
         // Instantiate the fields you want to show and mount them to the DOM.
         const cardNumber = formElements.create('cardNumber', {
-            placeholders
+            placeholders,
+            style
         });
         cardNumber.mount('#card-number');
 
         const expiry = formElements.create('creditCardExpiry', {
-            placeholders
+            placeholders,
+            style
         });
         expiry.mount('#exp-date');
             
@@ -92,9 +124,9 @@ export const Payment: React.FC = () => {
     
     const processPayment = () => {
         //console.log("processPayment");
-        console.log(nameOnCardRef);
-        console.log(cardNumberRef);
-        console.log(expiryRef);
+        console.log(nameOnCardRef.current);
+        console.log(cardNumberRef.current);
+        console.log(expiryRef.current);
         // const additionalData = {
         //     holder_name: document.getElementById('cardholder-name').value // This field is mandatory
         // }
@@ -119,11 +151,11 @@ export const Payment: React.FC = () => {
                 </div>
                 <div className="field">
                     <label>Card Number</label>
-                    <input id="card-number" type="text" ref={cardNumberRef} className="input empty" />
+                    <div id="card-number" ref={cardNumberRef} className="input empty"></div>
                 </div>
                 <div className="field">
                     <label>Expiration Date</label>
-                    <input id="exp-date" type="text" ref={expiryRef} className="input empty" /> 
+                    <div id="exp-date" ref={expiryRef} className="input empty"></div>
                 </div>
                 <button onClick={processPayment}>Pay</button>
             </div>
